@@ -57,10 +57,4 @@ public class RedisRequestEncoder extends MessageToByteEncoder<RedisCommand> {
             out.writeByte(LF_FLAG);
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println((char) 42);
-        System.out.println((char) 50);
-        System.out.println(String.valueOf(2).getBytes(StandardCharsets.UTF_8)[0]);
-    }
 }
