@@ -9,7 +9,6 @@ import io.netty.util.concurrent.Promise;
 
 public class RedisClient {
 
-
     private RedisConnectionPool pool;
 
     public RedisClient(RedisConfig config) {

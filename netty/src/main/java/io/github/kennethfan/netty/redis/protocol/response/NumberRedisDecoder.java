@@ -4,9 +4,10 @@ import io.netty.buffer.ByteBuf;
 
 public class NumberRedisDecoder implements RedisDecoder<Long> {
 
-    public  static final NumberRedisDecoder INSTANCE = new NumberRedisDecoder();
+    public static final NumberRedisDecoder INSTANCE = new NumberRedisDecoder();
 
-    private NumberRedisDecoder() {}
+    private NumberRedisDecoder() {
+    }
 
     @Override
     public Long decode(ByteBuf byteBuf) {

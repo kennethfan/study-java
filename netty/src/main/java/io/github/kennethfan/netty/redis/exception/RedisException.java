@@ -6,7 +6,6 @@ public class RedisException extends RuntimeException {
         super(cause);
     }
 
-
     public RedisException(String message, Throwable cause) {
         super(message, cause);
     }

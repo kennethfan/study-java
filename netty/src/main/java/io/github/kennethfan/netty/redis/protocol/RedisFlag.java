@@ -27,13 +27,15 @@ public class RedisFlag {
     /**
      * 回车
      */
-    public static final byte CR_FLAG = (byte)  '\r';
+    public static final byte CR_FLAG = (byte) '\r';
 
     /**
      * 换行
      */
-    public static final byte LF_FLAG = (byte)  '\n';
+    public static final byte LF_FLAG = (byte) '\n';
 
-
+    /**
+     * $-1表示null
+     */
     public static final int NULL_STR_LENGTH = -1;
 }
