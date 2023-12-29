@@ -21,7 +21,7 @@ public class ArrayRedisDecoder implements RedisDecoder<List<Object>> {
 
         int size = Integer.parseInt(new String(lengthBytes));
         List<Object> data = new ArrayList<>(size);
-        for (int i = 0 ;i< size; i++) {
+        for (int i = 0; i < size; i++) {
             data.add(RedisDecoder.getDecoder(byteBuf.readByte()).decode(byteBuf));
         }
 

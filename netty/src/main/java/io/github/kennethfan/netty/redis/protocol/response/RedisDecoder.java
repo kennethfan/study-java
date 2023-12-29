@@ -8,7 +8,6 @@ import static io.github.kennethfan.netty.redis.protocol.RedisFlag.*;
 
 public interface RedisDecoder<T> {
 
-
     static RedisDecoder getDecoder(byte prefix) {
         switch (prefix) {
             case ERROR_FLAG:
