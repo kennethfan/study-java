@@ -19,6 +19,8 @@
         <module>crypto</module>
         <module>jnr</module>
         <module>file</module>
+        <module>net</module>
+        <module>socket</module>
     </modules>
 
     <name>study</name>
