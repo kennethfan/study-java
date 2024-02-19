@@ -1,5 +1,11 @@
 package io.github.kennethfan.file.rocksdb;
 
+import io.github.kennethfan.file.rocksdb.codec.Decoder;
+import io.github.kennethfan.file.rocksdb.codec.Encoder;
+import io.github.kennethfan.file.rocksdb.codec.SerializableDecoder;
+import io.github.kennethfan.file.rocksdb.codec.SerializableEncoder;
+import io.github.kennethfan.file.rocksdb.iterator.RocksdbIterator;
+import io.github.kennethfan.file.rocksdb.iterator.RocksdbRow;
 import org.rocksdb.*;
 
 import java.io.*;
@@ -46,13 +52,21 @@ public class RocksdbClient {
         this.rocksDB.put(key, value);
     }
 
+    public <K, V> void put(K key, Encoder<K> keyEncoder, V value, Encoder<V> valueEncoder) throws RocksDBException {
+        this.put(keyEncoder.encode(key), valueEncoder.encode(value));
+    }
+
+    public <K> void put(K key, Encoder<K> keyEncoder, Serializable value) throws RocksDBException {
+        this.put(keyEncoder.encode(key), SerializableEncoder.getInstance().encode(value));
+    }
+
+    public <V> void put(Serializable key, V value, Encoder<V> valueEncoder) throws RocksDBException {
+        this.put(SerializableEncoder.getInstance().encode(key), valueEncoder.encode(value));
+    }
+
     public void put(Serializable key, Serializable value) throws RocksDBException {
-        if (key == null) {
-            throw new IllegalArgumentException("key is null");
-        }
-
-
-        this.put(object2bytes(key), object2bytes(value));
+        Encoder<Serializable> encoder = SerializableEncoder.getInstance();
+        this.put(encoder.encode(key), encoder.encode(value));
     }
 
     public byte[] get(byte[] key) throws RocksDBException {
@@ -63,18 +77,38 @@ public class RocksdbClient {
         return this.rocksDB.get(key);
     }
 
-    public byte[] get(Serializable key) throws RocksDBException {
-        if (key == null) {
-            throw new IllegalArgumentException("key is null");
-        }
-
-        return this.get(object2bytes(key));
+    public <V extends Serializable> V get(byte[] key, Class<V> clazz) throws RocksDBException {
+        byte[] bytes = this.get(key);
+        return SerializableDecoder.newInstance(clazz).decode(bytes);
     }
 
-    public <T> T get(Serializable key, Class<T> clazz) throws RocksDBException {
+    public <V> V get(byte[] key, Decoder<V> decoder) throws RocksDBException {
         byte[] bytes = this.get(key);
+        return decoder.decode(bytes);
+    }
 
-        return bytes2Object(bytes, clazz);
+    public byte[] get(Serializable key) throws RocksDBException {
+        return this.get(SerializableEncoder.getInstance().encode(key));
+    }
+
+    public <V extends Serializable> V get(Serializable key, Class<V> clazz) throws RocksDBException {
+        return this.get(SerializableEncoder.getInstance().encode(key), clazz);
+    }
+
+    public <V> V get(Serializable key, Decoder<V> decoder) throws RocksDBException {
+        return this.get(SerializableEncoder.getInstance().encode(key), decoder);
+    }
+
+    public <K> byte[] get(K key, Encoder<K> encoder) throws RocksDBException {
+        return this.get(encoder.encode(key));
+    }
+
+    public <K, V extends Serializable> V get(K key, Encoder<K> encoder, Class<V> clazz) throws RocksDBException {
+        return this.get(encoder.encode(key), clazz);
+    }
+
+    public <K, V> V get(K key, Encoder<K> encoder, Decoder<V> decoder) throws RocksDBException {
+        return this.get(encoder.encode(key), decoder);
     }
 
     public void delete(byte[] key) throws RocksDBException {
@@ -86,104 +120,26 @@ public class RocksdbClient {
     }
 
     public void delete(Serializable key) throws RocksDBException {
-        if (key == null) {
-            throw new IllegalArgumentException("key is null");
-        }
-
-        this.rocksDB.delete(object2bytes(key));
+        this.delete(SerializableEncoder.getInstance().encode(key));
     }
 
-    public <K, V> Iterator<RocksdbRow<K, V>> iterator(Class<K> kClass, Class<V> vClass) {
-        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), kClass, vClass);
+    public <K> void delete(K key, Encoder<K> encoder) throws RocksDBException {
+        this.delete(encoder.encode(key));
     }
 
-    public static class RocksdbRow<K, V> {
-        private K key;
-        private V value;
-
-        public RocksdbRow(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public K getKey() {
-            return key;
-        }
-
-        public V getValue() {
-            return value;
-        }
+    public <K, V> Iterator<RocksdbRow<K, V>> iterator(Decoder<K> keyDecoder, Decoder<V> valueDecoder) {
+        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), keyDecoder, valueDecoder);
     }
 
-    public static class RocksdbIterator<K, V> implements Iterator<RocksdbRow<K, V>> {
-        private RocksIterator rocksIterator;
-
-        private Class<K> keyClazz;
-
-        private Class<V> valueClazz;
-
-        public RocksdbIterator(RocksIterator rocksIterator, Class<K> keyClazz, Class<V> valueClazz) {
-            this.rocksIterator = rocksIterator;
-            this.rocksIterator.seekToFirst();
-            this.keyClazz = keyClazz;
-            this.valueClazz = valueClazz;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return rocksIterator.isValid();
-        }
-
-        @Override
-        public RocksdbRow<K, V> next() {
-            RocksdbRow<K, V> rocksdbRow = new RocksdbRow<>(bytes2Object(rocksIterator.key(), keyClazz), bytes2Object(rocksIterator.value(), valueClazz));
-            rocksIterator.next();
-            return rocksdbRow;
-        }
+    public <K, V extends Serializable> Iterator<RocksdbRow<K, V>> iterator(Decoder<K> keyDecoder, Class<V> valueClass) {
+        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), keyDecoder, SerializableDecoder.newInstance(valueClass));
     }
 
-    static <T> T bytes2Object(byte[] bytes, Class<T> clazz) {
-        if (bytes == null || bytes.length == 0) {
-            return null;
-        }
-
-        Object result;
-        try (ByteArrayInputStream in = new ByteArrayInputStream(bytes)) {
-            try (ObjectInputStream ois = new ObjectInputStream(in)) {
-                result = ois.readObject();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("result decode error", e);
-        }
-
-
-        if (result == null) {
-            return null;
-        }
-
-        if (clazz.isInstance(result)) {
-            return (T) result;
-        }
-
-        throw new RuntimeException("result decode error");
+    public <K extends Serializable, V> Iterator<RocksdbRow<K, V>> iterator(Class<K> keyClass, Decoder<V> valueDecoder) {
+        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), SerializableDecoder.newInstance(keyClass), valueDecoder);
     }
 
-    static byte[] object2bytes(Serializable obj) {
-        if (obj == null) {
-            return null;
-        }
-
-        if (obj instanceof byte[]) {
-            return (byte[]) obj;
-        }
-
-        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            try (ObjectOutputStream oos = new ObjectOutputStream(out)) {
-                oos.writeObject(obj);
-                return out.toByteArray();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("object encode error");
-        }
+    public <K extends Serializable, V extends Serializable> Iterator<RocksdbRow<K, V>> iterator(Class<K> keyClass, Class<V> valueClass) {
+        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), SerializableDecoder.newInstance(keyClass), SerializableDecoder.newInstance(valueClass));
     }
 }

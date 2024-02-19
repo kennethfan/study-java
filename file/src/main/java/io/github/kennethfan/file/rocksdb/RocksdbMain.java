@@ -1,5 +1,6 @@
 package io.github.kennethfan.file.rocksdb;
 
+import io.github.kennethfan.file.rocksdb.iterator.RocksdbRow;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -31,10 +32,10 @@ public class RocksdbMain {
             }
         }
 
-        Iterator<RocksdbClient.RocksdbRow<String, String>> iterator = rocksdbClient.iterator(String.class, String.class);
+        Iterator<RocksdbRow<String, String>> iterator = rocksdbClient.iterator(String.class, String.class);
         int i = 0;
         while (iterator.hasNext()) {
-            RocksdbClient.RocksdbRow<String, String> row = iterator.next();
+            RocksdbRow<String, String> row = iterator.next();
             log.info("i={}, key={}, value={}", i++, row.getKey(), row.getValue());
         }
 
@@ -45,7 +46,7 @@ public class RocksdbMain {
         iterator = rocksdbClient.iterator(String.class, String.class);
         i = 0;
         while (iterator.hasNext()) {
-            RocksdbClient.RocksdbRow<String, String> row = iterator.next();
+            RocksdbRow<String, String> row = iterator.next();
             log.info("i={}, key={}, value={}", i++, row.getKey(), row.getValue());
         }
     }
