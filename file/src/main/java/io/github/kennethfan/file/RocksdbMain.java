@@ -1,5 +1,8 @@
-package io.github.kennethfan.file.rocksdb;
+package io.github.kennethfan.file;
 
+import io.github.kennethfan.file.rocksdb.RocksdbClient;
+import io.github.kennethfan.file.rocksdb.codec.StringDecoder;
+import io.github.kennethfan.file.rocksdb.codec.StringEncoder;
 import io.github.kennethfan.file.rocksdb.iterator.RocksdbRow;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,23 +19,23 @@ public class RocksdbMain {
     public static void main(String[] args) throws Exception {
         RocksdbClient rocksdbClient = RocksdbClient.newInstance(path);
 
-        rocksdbClient.put("hello", "world");
-        log.info("key=hello, value={}", rocksdbClient.get("hello", String.class));
+        rocksdbClient.put("hello", StringEncoder.getInstance(), "world", StringEncoder.getInstance());
+        log.info("key=hello, value={}", rocksdbClient.get("hello", StringEncoder.getInstance(), StringDecoder.getInstance()));
 
-        rocksdbClient.put("hello", null);
-        log.info("key=hello, value={}", rocksdbClient.get("hello", String.class));
+        rocksdbClient.put("hello", StringEncoder.getInstance(), (String) null);
+        log.info("key=hello, value={}", rocksdbClient.get("hello", StringEncoder.getInstance(), String.class));
 
         List<String> keys = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             String key = UUID.randomUUID().toString().replace("-", "");
             String value = UUID.randomUUID().toString().replace("-", "");
-            rocksdbClient.put(key, value);
+            rocksdbClient.put(key, StringEncoder.getInstance(), value, StringEncoder.getInstance());
             if (i % 2 == 0) {
                 keys.add(key);
             }
         }
 
-        Iterator<RocksdbRow<String, String>> iterator = rocksdbClient.iterator(String.class, String.class);
+        Iterator<RocksdbRow<String, String>> iterator = rocksdbClient.iterator(StringDecoder.getInstance(), StringDecoder.getInstance());
         int i = 0;
         while (iterator.hasNext()) {
             RocksdbRow<String, String> row = iterator.next();
@@ -40,10 +43,10 @@ public class RocksdbMain {
         }
 
         for (String key : keys) {
-            rocksdbClient.delete(key);
+            rocksdbClient.delete(key, StringEncoder.getInstance());
         }
 
-        iterator = rocksdbClient.iterator(String.class, String.class);
+        iterator = rocksdbClient.iterator(StringDecoder.getInstance(), StringDecoder.getInstance());
         i = 0;
         while (iterator.hasNext()) {
             RocksdbRow<String, String> row = iterator.next();
