@@ -128,18 +128,18 @@ public class RocksdbClient {
     }
 
     public <K, V> Iterator<RocksdbRow<K, V>> iterator(Decoder<K> keyDecoder, Decoder<V> valueDecoder) {
-        return RocksdbIterator.newInstance(this.rocksDB.newIterator(new ReadOptions()), keyDecoder, valueDecoder);
+        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), keyDecoder, valueDecoder);
     }
 
     public <K, V extends Serializable> Iterator<RocksdbRow<K, V>> iterator(Decoder<K> keyDecoder, Class<V> valueClass) {
-        return RocksdbIterator.newInstance(this.rocksDB.newIterator(new ReadOptions()), keyDecoder, valueClass);
+        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), keyDecoder, SerializableDecoder.newInstance(valueClass));
     }
 
     public <K extends Serializable, V> Iterator<RocksdbRow<K, V>> iterator(Class<K> keyClass, Decoder<V> valueDecoder) {
-        return RocksdbIterator.newInstance(this.rocksDB.newIterator(new ReadOptions()), keyClass, valueDecoder);
+        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), SerializableDecoder.newInstance(keyClass), valueDecoder);
     }
 
     public <K extends Serializable, V extends Serializable> Iterator<RocksdbRow<K, V>> iterator(Class<K> keyClass, Class<V> valueClass) {
-        return RocksdbIterator.newInstance(this.rocksDB.newIterator(new ReadOptions()), keyClass, valueClass);
+        return new RocksdbIterator<>(this.rocksDB.newIterator(new ReadOptions()), SerializableDecoder.newInstance(keyClass), SerializableDecoder.newInstance(valueClass));
     }
 }
