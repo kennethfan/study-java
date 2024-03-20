@@ -1,6 +1,11 @@
 package io.github.kennethfan.algorithm;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class LongestCommonSubsequence {
@@ -29,19 +34,35 @@ public class LongestCommonSubsequence {
             return s1.length();
         }
 
-        return longestCommonSubsequence(s1, s1.length() - 1, s2, s2.length() - 1);
+        return longestCommonSubsequence(s1, s1.length() - 1, s2, s2.length() - 1, new HashMap<>());
     }
 
-    private static int longestCommonSubsequence(String s1, int i, String s2, int j) {
+    private static int longestCommonSubsequence(String s1, int i, String s2, int j, Map<Pair, Integer> calculated) {
         // 到底
         if (i == -1 || j == -1) {
             return 0;
         }
+        Pair pair = new Pair(i, j);
+        Integer value = calculated.get(pair);
+        if (value != null) {
+            return value;
+        }
 
         if (s1.charAt(i) == s2.charAt(j)) {
-            return longestCommonSubsequence(s1, i - 1, s2, j - 1) + 1;
+            value = longestCommonSubsequence(s1, i - 1, s2, j - 1, calculated) + 1;
         } else {
-            return Math.max(longestCommonSubsequence(s1, i, s2, j - 1), longestCommonSubsequence(s1, i - 1, s2, j));
+            value = Math.max(longestCommonSubsequence(s1, i, s2, j - 1, calculated), longestCommonSubsequence(s1, i - 1, s2, j, calculated));
         }
+        calculated.put(pair, value);
+
+        return value;
+    }
+
+    @AllArgsConstructor
+    @EqualsAndHashCode
+    private static class Pair {
+        private int i;
+        private int j;
+
     }
 }
