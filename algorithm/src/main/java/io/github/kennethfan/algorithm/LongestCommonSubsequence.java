@@ -63,6 +63,5 @@ public class LongestCommonSubsequence {
     private static class Pair {
         private int i;
         private int j;
-
     }
 }
