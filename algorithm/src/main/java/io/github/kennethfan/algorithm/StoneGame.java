@@ -118,8 +118,8 @@ public class StoneGame {
             }
         }
 
-        Pair pair = new Pair(0, length - 1);
-        return firstCache.get(pair) - secondCache.get(pair);
+        Pair point = new Pair(0, length - 1);
+        return firstCache.get(point) - secondCache.get(point);
     }
 
     @AllArgsConstructor
@@ -128,6 +128,5 @@ public class StoneGame {
         private int i;
         private int j;
     }
-
 }
 
