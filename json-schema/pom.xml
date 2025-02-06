@@ -7,64 +7,39 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>json-schema</artifactId>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <configuration>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>org.apache.commons.logging.Log</name>
-                            <value>org.apache.commons.logging.impl.SimpleLog</value>
-                        </systemProperty>
-                    </systemProperties>
-                </configuration>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
-    </build>
-    <packaging>war</packaging>
-    <name>Databinder Application</name>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>net.databinder</groupId>
-            <artifactId>databinder</artifactId>
-            <version>1.0</version>
+            <groupId>io.github.kennethfan</groupId>
+            <artifactId>common-util</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.0.4</version>
+            <groupId>com.github.saasquatch</groupId>
+            <artifactId>json-schema-inferrer</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.erosb</groupId>
+            <artifactId>everit-json-schema</artifactId>
+            <version>1.14.4</version>
         </dependency>
     </dependencies>
 
-    <!-- uncomment to download prerelease versions of Databinder
-	<repositories>
-		<repository>
-			<id>databinder-snapshots</id>
-			<name>Databinder snapshot repository</name>
-			<url>http://databinder.net/snapshot</url>
-		</repository>
-	</repositories>
--->
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>com.clickhouse</id>
+            <url>https://mvnrepository.com/artifact/</url>
+            <!--            <url>https://mvnrepository.com/artifact/com.clickhouse/clickhouse-jdbc</url>-->
+        </repository>
+    </repositories>
+
 </project>

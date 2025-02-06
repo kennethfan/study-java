@@ -12,12 +12,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class SchemaMerge {
+public class SchemaMerger {
 
     public static JsonNode merge(ObjectNode schema) {
-        if (schema.properties().size() <= 2) {
+        if (schema.properties().size() < 2) {
             return schema;
         }
+
         List<JsonNode> subSchemas = schema.get(SchemaConstants.Keys.PROPERTIES)
                 .properties()
                 .stream()
@@ -36,6 +37,7 @@ public class SchemaMerge {
         schema.remove(SchemaConstants.Keys.PROPERTIES);
         schema.remove(SchemaConstants.Keys.REQUIRED);
         schema.replace(SchemaConstants.Keys.ADDITIONAL_PROPERTIES, propertySchema);
+        schema.replace(SchemaConstants.Keys.PATTERN_PROPERTIES, SchemaUtil.PATTERN_PROPERTIES);
 
         return schema;
     }
@@ -97,6 +99,13 @@ public class SchemaMerge {
         return JsonNodeFactory.instance.textNode("null");
     }
 
+    /**
+     *
+     * @param type1
+     * {"type":"string"},{"type":"number"},{"type":"boolean"}
+     * @param type2
+     * @return
+     */
     private static JsonNode mergeType(JsonNode type1, JsonNode type2) {
         if (type1.equals(type2)) {
             return type1;

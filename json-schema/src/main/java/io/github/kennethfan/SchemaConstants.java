@@ -1,19 +1,33 @@
 package io.github.kennethfan;
 
-import lombok.Getter;
-import lombok.Setter;
+public interface SchemaConstants {
 
-@Setter
-@Getter
-public class SchemaKeys {
+    interface Keys {
 
-	public static final String SCHEMA = "schema";
+        String SCHEMA = "schema";
 
-	public static final String TYPE = "type";
+        String TYPE = "type";
 
-	public static final String PROPERTIES = "properties";
+        String PROPERTIES = "properties";
 
-	public static final String REQUIRED = "required";
+        String REQUIRED = "required";
 
-	public static final String ADDITIONAL_PROPERTIES = "additionalProperties";
+        String ADDITIONAL_PROPERTIES = "additionalProperties";
+
+        String PATTERN_PROPERTIES = "patternProperties";
+
+
+        String ITEMS = "items";
+    }
+
+    interface Types {
+
+        String TYPE_OBJECT = "object";
+
+        String TYPE_ARRAY = "array";
+
+        String TYPE_NUMBER = "number";
+
+        String Type_ANY_OF = "anyOf";
+    }
 }
