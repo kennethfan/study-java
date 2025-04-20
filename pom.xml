@@ -21,6 +21,12 @@
         <module>file</module>
         <module>socket</module>
         <module>algorithm</module>
+        <module>od</module>
+        <module>json-schema</module>
+        <module>similarity</module>
+        <module>timezone</module>
+        <module>reactive</module>
+        <module>zip</module>
     </modules>
 
     <name>study</name>
@@ -114,6 +120,11 @@
                 <artifactId>jmockit</artifactId>
                 <version>1.9</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>5.7.22</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>

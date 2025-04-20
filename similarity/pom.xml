@@ -1,0 +1,28 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <parent>
+        <artifactId>study</artifactId>
+        <groupId>io.github.kennethfan</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>similarity</artifactId>
+    <name>similarity Tapestry 5 Application</name>
+    <packaging>war</packaging>
+    <properties>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.kennethfan</groupId>
+            <artifactId>common-util</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.mpkorstanje/simmetrics -->
+        <dependency>
+            <groupId>com.github.mpkorstanje</groupId>
+            <artifactId>simmetrics-core</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
+    </dependencies>
+</project>
