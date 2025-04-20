@@ -27,7 +27,7 @@ public class ZipUtil {
                 zaos.closeArchiveEntry();
             }
             zaos.finish();
-            System.out.println("ZIP文件创建成功");
+            log.info("ZIP文件创建成功");
         } catch (Exception e) {
             log.error("ZIP文件创建失败", e);
         }
