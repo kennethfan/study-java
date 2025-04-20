@@ -27,6 +27,7 @@
         <module>timezone</module>
         <module>reactive</module>
         <module>zip</module>
+        <module>pdf</module>
     </modules>
 
     <name>study</name>

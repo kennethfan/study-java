@@ -6,12 +6,14 @@
         <artifactId>study</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>zip</artifactId>
+    <artifactId>pdf</artifactId>
+
+
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-compress</artifactId>
-            <version>1.21</version> <!-- 使用最新版本 -->
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf-openpdf</artifactId>
+            <version>9.1.22</version>
         </dependency>
         <dependency>
             <groupId>io.github.kennethfan</groupId>
@@ -19,3 +21,4 @@
         </dependency>
     </dependencies>
 </project>
+
