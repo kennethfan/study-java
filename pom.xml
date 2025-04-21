@@ -28,6 +28,7 @@
         <module>reactive</module>
         <module>zip</module>
         <module>pdf</module>
+        <module>mail</module>
     </modules>
 
     <name>study</name>
