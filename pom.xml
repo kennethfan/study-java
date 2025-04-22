@@ -29,6 +29,7 @@
         <module>zip</module>
         <module>pdf</module>
         <module>mail</module>
+        <module>template</module>
     </modules>
 
     <name>study</name>
