@@ -10,7 +10,7 @@ public class StrMain {
         while (in.hasNextInt()) { // 注意 while 处理多个 case
             numbers.add(in.nextInt());
         }
-        if (numbers.length % 6 != 0) {
+        if (numbers.size() % 6 != 0) {
             throw new IllegalArgumentException("Invalid input");
         }
         int length = numbers.size() / 2;
