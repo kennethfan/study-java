@@ -30,6 +30,7 @@
         <module>pdf</module>
         <module>mail</module>
         <module>template</module>
+        <module>handle</module>
     </modules>
 
     <name>study</name>
