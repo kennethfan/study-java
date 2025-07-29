@@ -38,8 +38,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <common-util.version>1.0.0-SNAPSHOT</common-util.version>
         <proxy.version>1.0.0-SNAPSHOT</proxy.version>
         <rpc-api.version>1.0.0-SNAPSHOT</rpc-api.version>
@@ -122,7 +122,7 @@
             <dependency>
                 <groupId>org.jmockit</groupId>
                 <artifactId>jmockit</artifactId>
-                <version>1.9</version>
+                <version>1.49</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

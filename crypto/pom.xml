@@ -11,16 +11,10 @@
 
     <artifactId>crypto</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.github.kennethfan</groupId>
             <artifactId>common-util</artifactId>
         </dependency>
     </dependencies>
-
 </project>
