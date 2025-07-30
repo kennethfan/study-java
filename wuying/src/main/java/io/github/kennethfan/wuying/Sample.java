@@ -99,15 +99,15 @@ public class Sample {
             List<DescribeAndroidInstancesResponseBody.DescribeAndroidInstancesResponseBodyInstanceModel> instances = getInstances();
             log.info("instances={}", JSON.toJSONString(instances));
 
-            List<BatchGetAcpConnectionTicketResponseBody.BatchGetAcpConnectionTicketResponseBodyInstanceConnectionModels> tickets = getTickets(instances.get(1));
+            List<BatchGetAcpConnectionTicketResponseBody.BatchGetAcpConnectionTicketResponseBodyInstanceConnectionModels> tickets = getTickets(instances.get(0));
             log.info("tickets={}", JSON.toJSONString(tickets));
 //
-//            disconnect(instances.get(1));
+//            disconnect(instances.get(0));
 
-//            String invokeId = runCommand(instances.get(1), "pm list packages");
+//            String invokeId = runCommand(instances.get(0), "pm list packages");
 //            log.info("invokeId={}", invokeId);
 
-//            List<DescribeInvocationsResponseBody.DescribeInvocationsResponseBodyData> commandResults = getCommandResult(instances.get(1), "t-bj05sa652ju5lvk");
+//            List<DescribeInvocationsResponseBody.DescribeInvocationsResponseBodyData> commandResults = getCommandResult(instances.get(0), "t-bj05sa652ju5lvk");
 //            log.info("commandResults={}", JSON.toJSONString(commandResults));
         } catch (TeaException error) {
             // 此处仅做打印展示，请谨慎对待异常处理，在工程项目中切勿直接忽略异常。
