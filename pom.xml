@@ -32,6 +32,7 @@
         <module>template</module>
         <module>handle</module>
         <module>wuying</module>
+        <module>k8s</module>
     </modules>
 
     <name>study</name>

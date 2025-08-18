@@ -89,7 +89,7 @@ public class Sample {
                         instanceModel.getAndroidInstanceId()
                 ));
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-            // 复制代码运行请自行打印 API 的返回值
+        // 复制代码运行请自行打印 API 的返回值
         DescribeInvocationsResponse resp = client.describeInvocationsWithOptions(describeInvocationsRequest, runtime);
         return resp.getBody().getData();
     }
@@ -99,15 +99,23 @@ public class Sample {
             List<DescribeAndroidInstancesResponseBody.DescribeAndroidInstancesResponseBodyInstanceModel> instances = getInstances();
             log.info("instances={}", JSON.toJSONString(instances));
 
+            disconnect(instances.get(0));
+
             List<BatchGetAcpConnectionTicketResponseBody.BatchGetAcpConnectionTicketResponseBodyInstanceConnectionModels> tickets = getTickets(instances.get(0));
             log.info("tickets={}", JSON.toJSONString(tickets));
-//
-//            disconnect(instances.get(0));
 
-//            String invokeId = runCommand(instances.get(0), "pm list packages");
+//            String invokeId = runCommand(instances.get(0), "am force-stop cn.gov.chinatax.gt4.app");
+
+//            String invokeId = runCommand(instances.get(0), "monkey -p cn.gov.chinatax.gt4.app -c android.intent.category.LAUNCHER 1");
+//            String invokeId = runCommand(instances.get(0), "input tap 540 1700");
+//            String invokeId = runCommand(instances.get(0), "input tap 320 1000");
+//            String invokeId = runCommand(instances.get(0), "input tap 80 1400");
+//            String invokeId = runCommand(instances.get(0), "input tap 820 1300");
+//            String invokeId = runCommand(instances.get(0), "input tap 540 1600");
 //            log.info("invokeId={}", invokeId);
+//            Thread.sleep(5000);
 
-//            List<DescribeInvocationsResponseBody.DescribeInvocationsResponseBodyData> commandResults = getCommandResult(instances.get(0), "t-bj05sa652ju5lvk");
+//            List<DescribeInvocationsResponseBody.DescribeInvocationsResponseBodyData> commandResults = getCommandResult(instances.get(0), "t-bj05slp9bxf03cw");
 //            log.info("commandResults={}", JSON.toJSONString(commandResults));
         } catch (TeaException error) {
             // 此处仅做打印展示，请谨慎对待异常处理，在工程项目中切勿直接忽略异常。
