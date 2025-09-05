@@ -15,7 +15,9 @@ import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.sql.DataSource;
 
@@ -48,16 +50,29 @@ public class JobConfiguration {
     }
 
     @Bean
+    public TaskExecutor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(25);
+        executor.setThreadNamePrefix("my-taskExecutor-");
+        executor.initialize();
+        return executor;
+    }
+
+    @Bean
     public Step step1(JobRepository jobRepository,
                       DataSourceTransactionManager transactionManager,
                       FlatFileItemReader<Person> reader,
                       PersonItemProcessor processor,
-                      JdbcBatchItemWriter<Person> writer) {
+                      JdbcBatchItemWriter<Person> writer,
+                      TaskExecutor taskExecutor) {
         return new StepBuilder("step1", jobRepository)
                 .<Person, Person>chunk(3, transactionManager)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
+                .taskExecutor(taskExecutor)
                 .build();
     }
 
