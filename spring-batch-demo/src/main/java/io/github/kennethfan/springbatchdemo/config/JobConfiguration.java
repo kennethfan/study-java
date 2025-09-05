@@ -47,7 +47,6 @@ public class JobConfiguration {
                 .build();
     }
 
-
     @Bean
     public Step step1(JobRepository jobRepository,
                       DataSourceTransactionManager transactionManager,
@@ -62,8 +61,7 @@ public class JobConfiguration {
                 .build();
     }
 
-
-    @Bean
+    @Bean("importUserJob")
     public Job importUserJob(JobRepository jobRepository, Step step1, JobCompletionNotificationListener listener) {
         return new JobBuilder("importUserJob", jobRepository)
                 .listener(listener)
