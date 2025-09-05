@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.simmetrics.Metric;
 import org.simmetrics.metrics.StringMetrics;
 
-import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
 @Slf4j
@@ -14,7 +13,7 @@ public class SimilarityMain {
         return null;
     }
 
-    public static void main(String[] args) throws NoSuchMethodException {
+    public static void main(String[] args) {
 
         String str1 = "This is a sentence. It is made of words";
         String str2 = "This sentence is similar. It has almost the same words";
