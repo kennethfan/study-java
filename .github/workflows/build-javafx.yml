@@ -25,6 +25,11 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        
+    # 先构建 common-util 依赖
+    - name: Build common-util dependency
+      working-directory: common-util
+      run: mvn -B clean install
     
     # 切换到子模块目录
     - name: Navigate to submodule
