@@ -2,11 +2,6 @@ name: JavaFX Submodule Package
 
 on:
   workflow_dispatch: 
-  push:
-    branches: [ master ]
-    paths:
-      - 'javafx-fxml-example/**'  # 只监控子模块变化
-      - '.github/workflows/build-javafx.yml'
   pull_request:
     types: [closed]
     branches:
