@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="io.github.kennethfan.controller.MainController"
+      spacing="15"
+      alignment="CENTER"
+      style="-fx-padding: 30;"
+      stylesheets="@styles.css">
+
+    <Text text="用户登录"
+          styleClass="header-text"/>
+
+    <GridPane styleClass="form-grid">
+        <columnConstraints>
+            <ColumnConstraints hgrow="NEVER" prefWidth="100"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="用户名:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="usernameField"
+                   promptText="输入用户名"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="密码:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <PasswordField fx:id="passwordField"
+                       promptText="输入密码"
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="登录"
+                onAction="#handleLogin"
+                styleClass="primary-button"/>
+        <Button text="清除"
+                onAction="#handleClear"
+                styleClass="secondary-button"/>
+    </HBox>
+
+    <Label fx:id="messageLabel"
+           styleClass="message-label"/>
+</VBox>

@@ -1,0 +1,36 @@
+/* styles.css */
+.root {
+    -fx-background-color: #f9f9f9;
+    -fx-font-family: 'Arial';
+}
+
+.header-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-fill: #333333;
+}
+
+.form-grid {
+    -fx-vgap: 10;
+    -fx-hgap: 10;
+    -fx-padding: 10;
+}
+
+.primary-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-pref-width: 80px;
+}
+
+.secondary-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-pref-width: 80px;
+}
+
+.message-label {
+    -fx-text-fill: #2196F3;
+    -fx-font-weight: bold;
+}
