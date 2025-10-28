@@ -1,6 +1,7 @@
 name: JavaFX Submodule Package
 
 on:
+  workflow_dispatch: 
   push:
     branches: [ master ]
     paths:
