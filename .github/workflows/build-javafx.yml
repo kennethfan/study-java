@@ -5,8 +5,12 @@ on:
     branches: [ master ]
     paths:
       - 'javafx-fxml-example/**'  # 只监控子模块变化
-  release:
-    types: [created]
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+    paths:
+      - 'javafx-fxml-example/**'  # 只监控子模块变化
 
 jobs:
   build-packages:
