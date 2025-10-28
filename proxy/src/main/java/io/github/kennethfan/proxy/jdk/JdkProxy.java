@@ -1,4 +1,4 @@
-package io.github.kennnethfan.proxy.jdk;
+package io.github.kennethfan.proxy.jdk;
 
 
 import io.github.kennethfan.common.util.MethodUtil;

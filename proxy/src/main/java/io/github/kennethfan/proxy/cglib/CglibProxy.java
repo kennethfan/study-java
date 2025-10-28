@@ -1,4 +1,4 @@
-package io.github.kennnethfan.proxy.cglib;
+package io.github.kennethfan.proxy.cglib;
 
 import net.sf.cglib.beans.BeanCopier;
 import net.sf.cglib.proxy.Enhancer;
