@@ -98,7 +98,7 @@ jobs:
         
     # 上传制品
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: package-${{ runner.os }}
         path: javafx-fxml-example/target/release/*
