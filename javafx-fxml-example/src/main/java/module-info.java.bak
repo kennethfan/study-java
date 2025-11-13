@@ -1,0 +1,9 @@
+module io.github.kennethfan.javafx {
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.graphics;
+
+    opens io.github.kennethfan.javafx to javafx.fxml;
+    opens io.github.kennethfan.javafx.controller to javafx.fxml;
+    exports io.github.kennethfan.javafx;
+}

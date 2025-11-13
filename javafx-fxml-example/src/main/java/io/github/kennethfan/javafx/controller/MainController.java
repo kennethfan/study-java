@@ -1,6 +1,6 @@
-package io.github.kennethfan.controller;
+package io.github.kennethfan.javafx.controller;
 
-import io.github.kennethfan.model.User;
+import io.github.kennethfan.javafx.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 

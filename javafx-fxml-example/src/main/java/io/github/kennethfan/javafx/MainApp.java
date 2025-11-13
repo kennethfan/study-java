@@ -1,4 +1,4 @@
-package io.github.kennethfan;
+package io.github.kennethfan.javafx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
