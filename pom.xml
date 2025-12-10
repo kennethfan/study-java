@@ -36,6 +36,7 @@
         <module>spring-batch-demo</module>
         <module>javafx-fxml-example</module>
         <module>flink</module>
+        <module>virtual-thread</module>
     </modules>
 
     <name>study</name>
