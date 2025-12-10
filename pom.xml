@@ -35,6 +35,7 @@
         <module>k8s</module>
         <module>spring-batch-demo</module>
         <module>javafx-fxml-example</module>
+        <module>flink</module>
     </modules>
 
     <name>study</name>

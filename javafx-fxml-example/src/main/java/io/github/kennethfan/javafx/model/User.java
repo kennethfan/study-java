@@ -1,4 +1,4 @@
-package io.github.kennethfan.model;
+package io.github.kennethfan.javafx.model;
 
 public class User {
 
